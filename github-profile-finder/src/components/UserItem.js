@@ -1,29 +1,26 @@
 // UserItem.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const UserItem = ({ user }) => {
-  // Check if user object is available and contains the expected properties
-  if (!user) {
-    return <div>Loading...</div>; // Render a fallback if user is undefined
-  }
+const UserItem = (props) => {
+  // Access the user object from props
+  const { login, avatar_url } = props.user;
 
+  // Render the user details with Tailwind CSS classes
   return (
-    <div className="bg-white p-4 rounded shadow hover:shadow-lg transition duration-200">
-      {/* Safely access user properties with optional chaining */}
+    <div className="bg-white shadow-md rounded-lg p-4 text-center transition-transform hover:scale-105">
       <img
-        src={user?.avatar_url || 'https://via.placeholder.com/150'} // Fallback to a placeholder image
-        alt={user?.login || 'User Avatar'}
-        className="w-24 h-24 rounded-full mx-auto mb-4"
+        src={avatar_url}
+        alt={login}
+        className="w-16 h-16 rounded-full mx-auto mb-3"
       />
-      <h3 className="text-center text-xl font-semibold">{user?.login || 'Unknown User'}</h3>
-      <a
-        href={user?.html_url || '#'}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block mt-2 text-center text-blue-500 hover:underline"
+      <h3 className="text-lg font-semibold mb-2">{login}</h3>
+      <Link
+        to="/"
+        className="inline-block bg-blue-500 text-white py-1 px-3 rounded-full text-sm hover:bg-blue-600"
       >
-        View Profile
-      </a>
+        More
+      </Link>
     </div>
   );
 };
