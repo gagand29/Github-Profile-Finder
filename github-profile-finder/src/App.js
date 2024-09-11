@@ -30,7 +30,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="max-w-[1100px] mx-auto overflow-hidden px-8 py-0 bg-white rounded shadow mt-6">
+      <div className="max-w-[1100px] mx-auto overflow-hidden px-8 py-0 bg-white ">
         {/* Container styles using Tailwind */}
         <Search />
         <Users users={users} />
