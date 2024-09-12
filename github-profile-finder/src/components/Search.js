@@ -1,36 +1,54 @@
 // Search.js
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 
-const Search = () => {
-    const [text, setText] = useState('');
+const Search = (props) => {
+  const [text, setText] = useState('');
 
-const handleSubmit=(e)=>{
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('text vlaue', text);
+    console.log('text value', text);
+    props.searchName(text);
+    setText('');
+  };
 
-}
-
+  
+  const handleClear = () => {
+    setText(''); 
+    props.clearUsers(); 
+  };
 
   return (
-    <form className="flex items-center justify-between mt-4" 
-    onSubmit={handleSubmit}>
-    
-      <input
-        type="text"
-        name="text"
-        placeholder="Search"
-        value={text} 
-        onChange={(e) => setText(e.target.value)}
-        className="flex-grow p-3 border border-gray-300 rounded-l-md focus:outline-none focus:ring-0" 
-      />
+    <div className="mt-4">
+      {/* Form only contains the input field */}
+      <form className="flex items-center justify-between" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="text"
+          placeholder="Search"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-0" // Set width to full
+        />
+      </form>
+
+      {/* Search Button, placed outside the form */}
       <button
-        type="submit"
-        value="search"
-        className="p-3 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-0" 
+        onClick={handleSubmit}
+        className="mt-2 w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-0"
       >
         Search
       </button>
-    </form>
+
+      {/* Clear Button */}
+      {props.showClear() && (
+        <button
+          onClick={handleClear} 
+          className="mt-2 w-full p-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-0"
+        >
+          Clear
+        </button>
+      )}
+    </div>
   );
 };
 
